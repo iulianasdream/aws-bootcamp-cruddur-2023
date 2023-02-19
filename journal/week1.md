@@ -25,12 +25,19 @@ Followed through the Security video.
 
 ![snyk scan of docker-goof](./assets/week1_snyk_scan_of_docker-goof.png)
 
+## AWS Secrets Manager
+
+…so you don’t store secrets in docker files.
+
+* Created an AWS secret
+![aws secret](./assets/week1_aws_secret.png)
+
 # Other notes
 
 ## CloudTrail - Avoid expenses
 
 * Implemented as part of the Security videos, but has risk of expenses increasing.
 * Stopped CloudTrail logging and removed it.
-* Emptied S3 bucket and deleted it.
+* Emptied [S3 bucket](https://console.aws.amazon.com/s3/) and deleted it. Had to google how to do this, couldn't leave them hanging around although logging stopped and CloudTrail instance deleted.
 
 ## My docker cheatsheet
