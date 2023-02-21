@@ -10,12 +10,6 @@ Used docker commands to build and run containers, then Compose Up to run a micro
 
 ![docker bootcamp app working](./assets/week1_docker_live_session_repro_app_working.png)
 
-## Real-world
-
-One of my employers used **JFROG** for internal artifacts and docker images registry. You could pull a docker image or an .rpm installer of the products they were developing. There was a public, customer, docker registry as well. 
-
-I was the feature owner (and tester) for that employer’s first Docker solution for their core product and championed the process for automatic publishing of docker images to the public registry. Loved it!
-
 ## Docker Security
 
 Followed through the Security video.
@@ -33,6 +27,12 @@ Followed through the Security video.
 ![aws secret](./assets/week1_aws_secret.png)
 
 # Other notes
+
+## Real-world
+
+One of my employers used **JFROG** for internal artifacts and docker images registry. You could pull a docker image or an .rpm installer of the products they were developing. There was a public, customer, docker registry as well. 
+
+I was the feature owner (and tester) for that employer’s first Docker solution for their core product and championed the process for automatic publishing of docker images to the public registry. Loved it!
 
 ## CloudTrail - Avoid expenses
 
