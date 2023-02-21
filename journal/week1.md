@@ -26,6 +26,28 @@ Followed through the Security video.
 * Created an AWS secret
 ![aws secret](./assets/week1_aws_secret.png)
 
+# Create the notification feature
+
+Found out about [OpenAPI specification](https://www.openapis.org/) (used to be called swagger) and [https://readme.com](https://readme.com/) 
+
+Checked the OpenAPI specification where you can learn about different objects, data types etc. 
+
+Note for later: [Rails Service Objects](https://www.toptal.com/ruby-on-rails/rails-service-objects-tutorial) - the Rails services concept that supports micro-services deployments
+
+Followed along the code for backend and frontend. Did some extra changes to the code for frontend: replaced all ‘home’ occurrences with ‘notifications’. The app wouldn’t load.
+
+![Uncaught error](./assets/week1_app_not_loading_frontend_uncaught_error.png)
+
+I really thought I copied that comma, I knew it’s needed. 🙂
+
+Fixed that, but then actual Notifications and Home entries don’t load - CORS errors:
+
+![CORS erros](./assets/week1_CORS_error.png)
+
+The problem was the ports were locked. All fine after unlocking ports.
+
+![Frontend working](./assets/week1_frontend_working.png)
+
 # Other notes
 
 ## Real-world
