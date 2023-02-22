@@ -48,6 +48,22 @@ The problem was the ports were locked. All fine after unlocking ports.
 
 ![Frontend working](./assets/week1_frontend_working.png)
 
+Did the work in a branch and then merged it to main via Pull Request.
+
+## DynamoDB Local and Postgres 
+
+Useful links: [AWS DynamoDB Local](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html) and [100DaysOfCloud](https://github.com/100DaysOfCloud/challenge-dynamodb-local)
+
+Some struggle with psql client, but sorted via
+
+```
+psql -U postgres --host localhost
+```
+
+![postgres working](./assets/week1_postgres_working.png)
+
+**# Other notes**
+
 # Other notes
 
 ## Real-world
