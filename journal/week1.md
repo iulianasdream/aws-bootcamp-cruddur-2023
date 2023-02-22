@@ -62,6 +62,10 @@ psql -U postgres --host localhost
 
 ![postgres working](./assets/week1_postgres_working.png)
 
+DynamoDB also working
+
+![dynamoDB](./assets/week1_dynamodb_working.png)
+
 **# Other notes**
 
 # Other notes
