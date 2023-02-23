@@ -66,7 +66,26 @@ DynamoDB also working
 
 ![dynamoDB](./assets/week1_dynamodb_working.png)
 
-**# Other notes**
+# Stretch Homework
+
+## Run the dockerfile CMD as an external script
+
+Replaced CMD with ENTRYPOINT and put the commands in a .sh script executed by Entrypoint. Issues encountered.
+* got "executable file not found in $PATH" errors
+* port 3000, although open, was not served
+
+Solutions
+* ([ref1](https://github.com/docker-library/postgres/issues/296)) entrypoint failing to find file, so I’ve used /usr/bin/ as the destination in the container
+- ([ref2](https://sebhastian.com/npm-start-not-working/)) port 3000 not working, so frontend not ok. NPM not starting? package.json is there, start script is mentioned. I can see npm install being run during docker compose up.
+    - Add npm install to the [frontend.sh](http://frontend.sh) script executed by Entrypoint ⇒ port is now green, but browser displays port 3000 not found instead of the app
+    - After a few compose up and down and waiting a bit on the page, I got the app page. **Yay!**
+
+Other resources that helped:
+*  [ref3 - run a script in dockerfile](https://stackoverflow.com/questions/34549859/run-a-script-in-dockerfile)
+* RUN is used during the build phase to modify the Docker image, while CMD specifies the default command to run when a container is started from the image.
+* ([ref4](https://stackoverflow.com/questions/56586562/how-to-source-an-entry-point-script-with-docker)) it is [not a good idea](https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/) to run a shell as the initial process in a container. That screws up the signal handling. You'll notice that you cannot stop execution with Ctrl-C. Therefore, use `CMD` instead of `ENTRYPOINT` to start the shell. The initial process with id 1 should be a minimal init process, such as `[tini](https://stackoverflow.com/a/44689700/11451509)`.
+ * well, I'm still runnin a .sh
+- ([ref5- general intro to CMD and ENTRYPOINT](https://aws.amazon.com/blogs/opensource/demystifying-entrypoint-cmd-docker/))
 
 # Other notes
 
