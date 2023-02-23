@@ -15,9 +15,11 @@ RUN pip3 install -r requirements.txt
 # first . /backend-flask outside container
 # second . /backend-flast inside container
 COPY . .
+COPY backend.sh /usr/bin/
+RUN chmod +x /usr/bin/backend.sh
 
 # Inside container
 ENV FLASK_ENV=development
 
 EXPOSE ${PORT}
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
+ENTRYPOINT [ "/usr/bin/backend.sh" ]
