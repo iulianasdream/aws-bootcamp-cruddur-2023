@@ -94,7 +94,7 @@ aws-xray-daemon added and running - did not have a Bad Gateway error as Andrew d
 - [https://stackoverflow.com/questions/54236375/what-are-the-best-practises-for-setting-up-x-ray-daemon](https://stackoverflow.com/questions/54236375/what-are-the-best-practises-for-setting-up-x-ray-daemon)
 - [https://docs.aws.amazon.com/index.html#sdks](https://docs.aws.amazon.com/index.html#sdks)
 - [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/xray.html](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/xray.html)
-- https://github.com/aws/aws-xray-sdk-python
+- https://github.com/aws/aws-xray-sdk-python - getting some of our code from here
 - https://docs.aws.amazon.com/xray-sdk-for-python/latest/reference/configurations.html 
 
 Segment and Sub-segment for user_activities - requires adding to backend URL: "/api/activities/@<user>"
@@ -102,6 +102,17 @@ Segment and Sub-segment for user_activities - requires adding to backend URL: "/
 ![backend_URL_for_segment](./assets/week2_segment_backend_URL.png)
 ![xray_traces_after_segment_code_AWS](./assets/week2_segment_traces_AWS_but_not_really.png)
 
+## Cloudwatch logs
+
+They worked, but disabled them to avoid costs.
+
+![Cloudwatch_log_group](./assets/week2_cloudwatch_log_group.png)
+![Cloudwatch_logs](./assets/week2_cloudwatch_logs.png)
+
+**Resources**
+
+- [https://www.youtube.com/watch?v=n2DTsuBrD_A](https://www.youtube.com/watch?v=n2DTsuBrD_A)
+- [https://pypi.org/project/watchtower/](https://pypi.org/project/watchtower/)
 
 ## Frontend Observability
 
