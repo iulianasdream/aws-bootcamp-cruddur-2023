@@ -114,6 +114,12 @@ They worked, but disabled them to avoid costs.
 - [https://www.youtube.com/watch?v=n2DTsuBrD_A](https://www.youtube.com/watch?v=n2DTsuBrD_A)
 - [https://pypi.org/project/watchtower/](https://pypi.org/project/watchtower/)
 
+## Rollbar 
+
+Rollbar setup worked
+
+![rollbar_working](./assets/week2_rollbar_working.png)
+
 ## Frontend Observability
 
 Observe a user's client-side experience.
