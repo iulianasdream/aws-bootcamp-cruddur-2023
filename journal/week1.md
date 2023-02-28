@@ -100,5 +100,3 @@ I was the feature owner (and tester) for that employer’s first Docker solution
 * Implemented as part of the Security videos, but has risk of expenses increasing.
 * Stopped CloudTrail logging and removed it.
 * Emptied [S3 bucket](https://console.aws.amazon.com/s3/) and deleted it. Had to google how to do this, couldn't leave them hanging around although logging stopped and CloudTrail instance deleted.
-
-## My docker cheatsheet
