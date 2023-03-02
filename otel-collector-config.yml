@@ -1,0 +1,38 @@
+receivers:
+ otlp:
+  protocols:
+   grpc: # port 4317
+    endpoint: "0.0.0.0:4317"
+   http: # port 4318
+    endpoint: "0.0.0.0:4318"
+    cors:
+     allowed_origins:
+      - "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      - "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+
+processors:
+ batch:
+  timeout: 10s
+
+exporters:
+ otlp:
+  endpoint: "api.honeycomb.io:443"
+  headers:
+   "x-honeycomb-team": "${HONEYCOMB_API_KEY}"
+ otlp/metrics:
+  endpoint: "api.honeycomb.io:443"
+  headers:
+   "x-honeycomb-team": "${HONEYCOMB_API_KEY}"
+   "x-honeycomb-dataset": "frontend-react-js"
+
+service:
+ extensions: [health_check]
+ pipelines:
+  traces:
+   receivers: [otlp]
+   processors: [batch]
+   exporters: [otlp]
+  metrics:
+   receivers: []
+   processors: []
+   exporters: [otlp/metrics]

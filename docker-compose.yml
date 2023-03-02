@@ -21,6 +21,9 @@ services:
   frontend-react-js:
     environment:
       REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      OTEL_SERVICE_NAME: "frontend-react-js"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
+      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
     build: ./frontend-react-js
     ports:
       - "3000:3000"
@@ -58,6 +61,15 @@ services:
       - "xray -o -b xray-daemon:2000"
     ports:
       - 2000:2000/udp
+  otel-collector:
+   image: otel/opentelemetry-collector-contrib:latest
+   container_name: otel-collector
+   hostname: otel-collector
+   command: ["--config=/etc/otel-collector-config.yml"]
+   volumes:
+    - ./otel-collector-config.yml:/etc/otel-collector-config.yml
+   ports:
+    - "5555:5555"   # OTLP receiver
 
 # the name flag is a hack to change the default prepend folder
 # name when outputting the image names
