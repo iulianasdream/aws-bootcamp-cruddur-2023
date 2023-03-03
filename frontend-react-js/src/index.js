@@ -24,17 +24,24 @@ const rootSpan = tracer.startActiveSpan('document_load', span => {
     // ... do loading things
     alert("Your page is loaded");
     // ... attach timing information
+    //var loadTime = window.performance.timing.domContentLoadedEventEnd- window.performance.timing.navigationStart;
     span.end(); //once page is loaded, end the span
+
+    var button = document.getElementById("testButton");
+    function colorFunction() {
+      window.alert("This color is blue!");
+    }
+    button.onclick=colorFunction;
+
+    button.clicked = (event) => {
+      tracer.startActiveSpan('app.button_clicked', btnSpan => {
+        // Add your attributes to describe the button clicked here
+        btnSpan.setAttribute('app.attr.signup', 'app.val.clicked');
+
+        btnSpan.end();
+      });
+    }
   };
-
-  button.clicked = (event) => {
-    tracer.startActiveSpan('app.button_clicked', btnSpan => {
-      // Add your attributes to describe the button clicked here
-      btnSpan.setAttribute('app.attr.signup', 'app.val.clicked');
-
-      btnSpan.end();
-    });
-  }
 });
 
 // If you want to start measuring performance in your app, pass a function

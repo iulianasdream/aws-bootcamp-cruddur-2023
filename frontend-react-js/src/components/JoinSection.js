@@ -11,6 +11,7 @@ export default function JoinSection(props) {
         <p>
           Have something you want to say?
         </p>
+        <button type="button" id="testButton">Click Me!</button>
         <p>
           Don't think about it, just crud it!
         </p>
