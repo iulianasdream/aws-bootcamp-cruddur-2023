@@ -138,8 +138,8 @@ aws budgets create-budget \
 
 ![AWS diagrams](https://lucid.app/lucidchart/44e11662-de4e-4635-a880-eb94402eba0d/edit?invitationId=inv_8a7147b0-5264-43e2-a3d7-6f8af639e2a0&page=0_0# "Conceptual and Logical AWS diagram")
 
-![aws conceptual diagram](./assets/week0_iuliana_aws_conceptual_diagram.png)
-![aws logical diagram](./assets/week0_iuliana_aws_logic_diagram.png)
+![aws conceptual diagram](./assets/week0/week0_iuliana_aws_conceptual_diagram.png)
+![aws logical diagram](./assets/week0/week0_iuliana_aws_logic_diagram.png)
 
 ## Various Command lines
 
