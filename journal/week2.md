@@ -11,7 +11,7 @@
 
 **Yaaaas!**
 
-![honeycomb_bootcamp_receiving_data](./assets/week2_honeycomb_bootcamp_data.png)
+![honeycomb_bootcamp_receiving_data](./assets/week2/week2_honeycomb_bootcamp_data.png)
 
 **Resources**
 
@@ -33,7 +33,7 @@ Honeycomb
 
 I’ve not done this bit during the live class, so when reproducing the class instruction I chose Last 24 hours for the data so I have something to see without stating up gitpod and running all the containers again. 
 
-![honeycomb_first_query](./assets/week2_honeycomb_queries_1.png)
+![honeycomb_first_query](./assets/week2/week2_honeycomb_queries_1.png)
 
 **Latency queries**
 
@@ -41,7 +41,7 @@ I’ve not done this bit during the live class, so when reproducing the class in
     - heatmap of duration is one of the best
     - want percentile as well: **p90** (90% of requests are faster than this number)
 
-![honeycomb_heatmap](./assets/week2_honeycomb_query_heatmap.png)
+![honeycomb_heatmap](./assets/week2/week2_honeycomb_query_heatmap.png)
 
 **Resources**
 
@@ -81,12 +81,12 @@ aws xray create-group \
  --group-name "Cruddur" \
  --filter-expression "service(\"backend-flask\")"
 ```
-![xray_group_CLI](./assets/week2_xray_group_CLI.png)
-![xray_group_AWS](./assets/week2_xray_group_AWS.png)
+![xray_group_CLI](./assets/week2/week2_xray_group_CLI.png)
+![xray_group_AWS](./assets/week2/week2_xray_group_AWS.png)
 
 aws-xray-daemon added and running - did not have a Bad Gateway error as Andrew did
 
-![xray_traces_AWS](./assets/week2_xray_traces_AWS.png)
+![xray_traces_AWS](./assets/week2/week2_xray_traces_AWS.png)
 
 **Resources**
 
@@ -99,15 +99,15 @@ aws-xray-daemon added and running - did not have a Bad Gateway error as Andrew d
 
 Segment and Sub-segment for user_activities - requires adding to backend URL: "/api/activities/@<user>"
 
-![backend_URL_for_segment](./assets/week2_segment_backend_URL.png)
-![xray_traces_after_segment_code_AWS](./assets/week2_segment_traces_AWS_but_not_really.png)
+![backend_URL_for_segment](./assets/week2/week2_segment_backend_URL.png)
+![xray_traces_after_segment_code_AWS](./assets/week2/week2_segment_traces_AWS_but_not_really.png)
 
 ## Cloudwatch logs
 
 They worked, but disabled them to avoid costs.
 
-![Cloudwatch_log_group](./assets/week2_cloudwatch_log_group.png)
-![Cloudwatch_logs](./assets/week2_cloudwatch_logs.png)
+![Cloudwatch_log_group](./assets/week2/week2_cloudwatch_log_group.png)
+![Cloudwatch_logs](./assets/week2/week2_cloudwatch_logs.png)
 
 **Resources**
 
@@ -118,7 +118,7 @@ They worked, but disabled them to avoid costs.
 
 Rollbar setup worked
 
-![rollbar_working](./assets/week2_rollbar_working.png)
+![rollbar_working](./assets/week2/week2_rollbar_working.png)
 
 ## Cloud Career
 
@@ -127,7 +127,7 @@ Skills roadmap golden rules:
 * Skills align with the goal
 * Skills are not "duplicated"
 
-![Cloud_Career](./assets/week2_cloud_career.png)
+![Cloud_Career](./assets/week2/week2_cloud_career.png)
 
 * I am going to become an: Information Security Manager
 * I am a good fit because: I am analytical, curious, inquisitive, exercise critical thinking, attentive to detail and able to zoom out as well, collaborative and pursuing value, efficient processes and outcomes.
@@ -260,7 +260,7 @@ npm start
 
 * updated **index.js** with code for creating traces and spans. This is where the JS errors started 🙂
 
-![JS_errors](./assets/week2_frontend_observability_JS_errors.png)
+![JS_errors](./assets/week2/week2_frontend_observability_JS_errors.png)
 
 * I tried to use a button.clicked event, but I’ve not defined the button and then saw the app doesn’t have any buttons, so I added one to **frontend-react-js/components/JoinSection.js**
 
@@ -407,4 +407,4 @@ Stopping here for now.
 - Synthetic Monitoring is a different approach that relies on automated tests going over a given
 set of test steps in order to take measurements.
 
-![otel_collector](./assets/week2_observability_otel_collector.png)
+![otel_collector](./assets/week2/week2_observability_otel_collector.png)
