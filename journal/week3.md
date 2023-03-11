@@ -102,6 +102,34 @@ NameError: name 'abort' is not defined
 localStorage.removeItem("access_token")
 ```
 
+## JWT implementation options
+
+* API Gateway
+* Sidecar e.g.
+ * Container Sidecar pattern using AWS’s official Aws-jwt-verify.js library
+ * Decouple the JWT verify process by using [Envoy](https://www.envoyproxy.io/)
+
+## UI changes and CSS Theme
+
+* Added CSS variables for colours - in the .css file that gets loaded first
+
+![New UI](./assets/week3/week3_new_UI.png)
+
+## Security Decentralized Authentication in AWS Cloud
+
+Notes from the video:
+
+* SAML (Security Assertion Markup Language) gives you one access point into any app
+* OpenID use your social accounts for other apps - does not do authorisation - it needs OAut
+ * Decentralized concept is similar - have user+pass in one place
+
+Basic concepts to think about:
+
+- User Life Cycle Management
+- Token Life Cycle Management and Token Scope
+- AuthN
+- AuthZ
+
 ## Resources
 
 - Amazon SES for sending emails [https://aws.amazon.com/ses/pricing/](https://aws.amazon.com/ses/pricing/)
@@ -109,3 +137,5 @@ localStorage.removeItem("access_token")
 - To use Congnito client side, you need AWS Amplify javascript library [Amplify and js/](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js/)
 
 - Using amplify with cognito - [Amplify with Cognito](https://ui.docs.amplify.aws)
+
+- Fediverse
