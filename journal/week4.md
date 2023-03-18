@@ -70,3 +70,90 @@ psql $CONNECTION_URL
 - Create bash scripts and sql scripts - worked
 
 ![SQL and Bash scripts worked](./assets/week4/week4_db_bash_and_sql_scripts_worked.png)
+
+## SQL RDS
+
+* Coming back to new workspace, had to create, schema and seed, db_connect and then proceed with the video.
+
+* SQL Tips - To view SQL query output better
+
+``` 
+\x on
+\x auto
+```
+
+* Get the driver for postgres - [https://www.psycopg.org/psycopg3/docs/](https://www.psycopg.org/psycopg3/docs/) 
+
+* Lambda spins up a new connection so cannot take advance of connection pooling within the runtime envirnment so you need something like RDS proxy (which is like a pg bouncer running like an external service, but don’t need this because we’ll use EC2 and that allows long running connections so you can do connection pooling within the application
+
+* Checked the driver API details to see which Fetch to use - [https://www.psycopg.org/psycopg3/docs/api/index.html](https://www.psycopg.org/psycopg3/docs/api/index.html)
+
+* PSQL json functions https://www.postgresql.org/docs/9.5/functions-json.html
+
+* After lots of issues and fixing, SQL query worked, but been so pressed with time I wasn't taking any more screenshots.
+
+## Connect to AWS RDS
+
+* Setup security group to allow connections from gitpod
+ * Get gitpod IP address and set it as env va
+
+```
+GITPOD_IP=$(curl ifconfig.me)
+export GITPOD_IP=$(curl ifconfig.me)
+```
+
+- we want to be able to modify security groups [https://docs.aws.amazon.com/cli/latest/reference/ec2/modify-security-group-rules.html](https://docs.aws.amazon.com/cli/latest/reference/ec2/modify-security-group-rules.html)
+- load schema to prod database
+- connect to RDS prod database and check content is displayed in the app page
+
+```
+docker_compose.yml 
+CONNECTION_URL: "${PROD_CONNECTION_URL}”
+```
+
+- create aws Lambda function - because we need a custom authorizer for Cognito - we need a user for activities and a cognito id
+- need to set env var in aws for that lambda - the prod connection url that we defined in our gitpod env
+- then add a layer - for my region and correct python version [https://github.com/jetbridge/psycopg2-lambda-laye](https://github.com/jetbridge/psycopg2-lambda-layer)
+- add Cognito trigger, then check it works by getting some logs
+    - I didn’t get any CloudWatch logs, the logs group was not automatically created
+
+```
+Log group does not exist
+The specific log group: /aws/lambda/cruddur-post-confirmation does not exist in this account or region.
+```
+
+- So how to I get Lambda related logs in CloudWatch? Need go check this: [https://docs.aws.amazon.com/lambda/latest/dg/monitoring-cloudwatchlogs.html](monitoring cloudwatch logs) 
+
+- https://aws.amazon.com/premiumsupport/knowledge-center/connect-lambda-to-an-rds-instance/ connect to VPC > error:
+
+```
+The provided execution role does not have permissions to call CreateNetworkInterface on EC2
+```
+
+- solved via https://stackoverflow.com/questions/41177965/aws-lambdathe-provided-execution-role-does-not-have-permissions-to-call-describ and creating a new policy AWSLambdaVPCAccessExecutionRole that was attached
+
+An example evidence of progress:
+![New role created](./assets/week4/week4_new_role.png)
+
+## Resources
+
+[https://github.com/AbhimanyuHK/aws-psycopg2](https://github.com/AbhimanyuHK/aws-psycopg2)
+
+`This is a custom compiled psycopg2 C library for Python. Due to AWS Lambda missing the required PostgreSQL libraries in the AMI image, we needed to compile psycopg2 with the PostgreSQL libpq.so library statically linked libpq library instead of the default dynamic link.`
+
+`EASIEST METHOD`
+
+Some precompiled versions of this layer are available publicly on AWS freely to add to your function by ARN reference.
+
+[https://github.com/jetbridge/psycopg2-lambda-layer](https://github.com/jetbridge/psycopg2-lambda-layer)
+
+- Just go to Layers + in the function console and add a reference for your region
+
+`arn:aws:lambda:ca-central-1:898466741470:layer:psycopg2-py38:1`
+
+Alternatively you can create your own development layer by downloading the psycopg2-binary source files from [https://pypi.org/project/psycopg2-binary/#files](https://pypi.org/project/psycopg2-binary/#files)
+
+- Download the package for the lambda runtime environment: [psycopg2_binary-2.9.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl](https://files.pythonhosted.org/packages/36/af/a9f06e2469e943364b2383b45b3209b40350c105281948df62153394b4a9/psycopg2_binary-2.9.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl)
+- Extract to a folder, then zip up that folder and upload as a new lambda layer to your AWS account
+
+Production - Follow the instructions on [https://github.com/AbhimanyuHK/aws-psycopg2](https://github.com/AbhimanyuHK/aws-psycopg2) to compile your own layer from postgres source libraries for the desired version.
