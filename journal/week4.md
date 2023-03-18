@@ -132,8 +132,24 @@ The provided execution role does not have permissions to call CreateNetworkInter
 
 - solved via https://stackoverflow.com/questions/41177965/aws-lambdathe-provided-execution-role-does-not-have-permissions-to-call-describ and creating a new policy AWSLambdaVPCAccessExecutionRole that was attached
 
+## Lambda logs in CloudWatch
+
+```
+aws iam attach-role-policy --role-name your-role --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+```
+
+* I tried the above for the cruddur related role and the new Role was created, but actually, the AWSLambdaBasicExecutionRole already existed for that user
+
+![AWSLambdaBasicExecutionRole](./assets/week4/week4_BasicLambdaExecutionRole.png)
+
 An example evidence of progress:
+
+* Created new role so we can set up VPC
 ![New role created](./assets/week4/week4_new_role.png)
+
+* Was able to connect to the RDS database
+
+![connect to RDS db via Database explorer](./assets/week4/week4_connected_to_RDS_db.png)
 
 ## Resources
 
