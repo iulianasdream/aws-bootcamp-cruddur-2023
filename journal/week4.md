@@ -2,6 +2,12 @@
 
 # Required homework
 
+## Summary
+
+Followed along all videos but still have two errors to resolve:
+* PostConfirmation failed with error local variable 'conn' referenced before assignment.
+* CORS error
+
 ## Live video
 
 Spin up an RDS instance first because it takes lots of time
@@ -162,11 +168,12 @@ Moved on to just checking functionality of the app again.
 PostConfirmation failed with error local variable 'conn' referenced before assignment.
 ```
 
+* I could not solve th above yet, the VPC is set, the new role was created and attached, not sure why it is not working.
+
 ## CORS error
 
 ![CORS error](./assets/week4/week4_CORS_err_submiting_first_activity.png)
 
-* I could not solve th above yet, the VPC is set, the new role was created and attached, not sure why it is not working.
 
 Other examples evidence of progress:
 
