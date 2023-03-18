@@ -7,16 +7,32 @@ class Db:
   def __init__(self):
     self.init_pool()
 
-  def template(self, name):
-    template_path = os.path.join(app.root_path, 'db', 'sql', name+'.sql')
+  def template(self, *args):
+    pathing = List((app.root_path,'db', 'sql',) + args)
+    pathing[-1] = pathing[-1] + ".sql"
+    
+    template_path = os.path.join(*pathing)
+
+    green = '\033[92m'
+    no_color = '\033[0m'
+    print("\n")
+    print(f'{green} Load SQL Template: {template_path} {no_color}')
+
     with open(template_path, 'r') as f:
       template_content = f.read( )
     return template_content
 
-  def init_pool(self,sql): 
+  def init_pool(self): 
     connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
   
+  def print_params(self,params):
+    blue = '\033[94m'
+    no_color = '\033[0m'
+    print(f'{blue} SQL Params:{no_color}')
+    for key, value in params.items():
+      print(key, ":", value)
+
   def print_sql(self):
     cyan = '\033[96m'
     no_color = '\033[0m'
@@ -26,7 +42,7 @@ class Db:
 
   # we want to commit data such as an INSERT
   # be sure to check for RETURNING in all uppercase
-  def query_commit(self,sql,params):
+  def query_commit(self,sql,params={}):
     self.print_sql('commit with returning ids', sql)
 
     pattern = r"\bRETURNING\b"
@@ -45,26 +61,30 @@ class Db:
         self.print_sql_err(err)
   
   # when we want to retun array of json object
-  def query_array_json(self,sql):
-    print("SQL Statement [array] -----------------")
-    print(sql + "\n")
+  def query_array_json(self,sql, params={}):
+    self.print_sql('array',sql)
+   
     wrapped_sql = self.query_wrap_array(sql)
     with self.pool.connection() as conn:
       with conn.cursor() as cur:
-        cur.execute(wrapped_sql)
+        cur.execute(wrapped_sql, params)
         json = cur.fetchone()
         return json[0]
   
   # when we want to return json objects
-  def query_object_json(self,sql):  
-    print("SQL Statement [object] -----------------")
-    print(sql + "\n")
+  def query_object_json(self,sql,params={}):  
+    self.print_sql('json object',sql)
+    self.print_params(params)
     wrapped_sql = self.query_wrap_object(sql)
+
     with self.pool.connection() as conn:
       with conn.cursor() as cur:
-        cur.execute(wrapped_sql)
+        cur.execute(wrapped_sql,params)
         json = cur.fetchone()
-        return json[0]
+        if json == None:
+          "{}"
+        else:
+          return json[0]
 
   def print_sql_err(self,err):
     # get details about the exception
