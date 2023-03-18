@@ -4,7 +4,7 @@ import os
 
 def lambda_handler(event, context):
     user = event['request']['userAttributes']
-    print(userAttributes)
+    print('userAttributes')
     print(user)
 
     user_name = user['name']
