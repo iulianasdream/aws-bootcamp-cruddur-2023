@@ -14,15 +14,17 @@ def lambda_handler(event, context):
     try:
       sql = f"""
         INSERT INTO users (
-        display_name, 
-        email,
-        handle, 
-        cognito_user_id)
+          display_name, 
+          email,
+          handle, 
+          cognito_user_id
+        )
         VALUES(
-            '{user_display_name}', 
-            '{user_email}',
-            '{user_handle}',
-            '{user_cognito_id}')
+          '{user_display_name}', 
+          '{user_email}',
+          '{user_handle}',
+          '{user_cognito_id}'
+        )
         """
       conn = psycopg2.connect(os.getenv("CONNECTION_URL"))
       cur = conn.cursor()
