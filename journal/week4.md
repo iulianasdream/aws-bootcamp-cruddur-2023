@@ -142,7 +142,29 @@ aws iam attach-role-policy --role-name your-role --policy-arn arn:aws:iam::aws:p
 
 ![AWSLambdaBasicExecutionRole](./assets/week4/week4_BasicLambdaExecutionRole.png)
 
-An example evidence of progress:
+Moved on to just checking functionality of the app again. 
+
+- tried db_setup and errored on NOT NULL conditions > update seed.sql > issue fixed
+
+- Tried signup and got an error (error text is from F12 > Network > Response tab) > I was printing userAttributes instead of ‘userAttributes’
+
+```
+{"__type":"UserLambdaValidationException","message":"PostConfirmation failed with error name 'userAttributes' is not defined."}
+```
+
+* Now I can see CloudWatch logs.
+
+![CloudWatch logs](./assets/week4/week4_CloudWatch_logs.png)
+
+* After solving that:
+
+```
+PostConfirmation failed with error local variable 'conn' referenced before assignment.
+```
+
+* I could not solve th above yet, the VPC is set, the new role was created and attached, not sure why it is not working.
+
+Other examples evidence of progress:
 
 * Created new role so we can set up VPC
 ![New role created](./assets/week4/week4_new_role.png)
