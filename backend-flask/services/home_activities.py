@@ -16,6 +16,6 @@ class HomeActivities:
       sql = db.template('activities', 'home')
       result = db.query_array_json(sql)    
 
-      return results
+      return result
       
       

@@ -8,7 +8,7 @@ class Db:
     self.init_pool()
 
   def template(self, *args):
-    pathing = List((app.root_path,'db', 'sql',) + args)
+    pathing = list((app.root_path,'db', 'sql',) + args)
     pathing[-1] = pathing[-1] + ".sql"
     
     template_path = os.path.join(*pathing)
@@ -33,7 +33,7 @@ class Db:
     for key, value in params.items():
       print(key, ":", value)
 
-  def print_sql(self):
+  def print_sql(self, title, sql):
     cyan = '\033[96m'
     no_color = '\033[0m'
     print("\n")
