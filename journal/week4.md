@@ -5,8 +5,8 @@
 ## Summary
 
 Followed along all videos but still have two errors to resolve:
-* PostConfirmation failed with error local variable 'conn' referenced before assignment.
-* CORS error
+* ~~PostConfirmation failed with error local variable 'conn' referenced before assignment.~~ This worked after starting a new workspace a while later.
+* ~~CORS error~~ This was due to the backend being broken by some typos in the code.
 
 ## Live video
 
