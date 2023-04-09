@@ -33,17 +33,17 @@ class Db:
     for key, value in params.items():
       print(key, ":", value)
 
-  def print_sql(self, title, sql):
+  def print_sql(self, title, sql, params={}):
     cyan = '\033[96m'
     no_color = '\033[0m'
     print("\n")
     print(f'{cyan}SQL Statement [{title}] ---------------{no_color}')
-    print(sql + "\n")
+    print(sql, params)
 
   # we want to commit data such as an INSERT
   # be sure to check for RETURNING in all uppercase
   def query_commit(self,sql,params={}):
-    self.print_sql('commit with returning ids', sql)
+    self.print_sql('commit with returning ids', sql, params)
 
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
@@ -62,7 +62,7 @@ class Db:
   
   # when we want to retun array of json object
   def query_array_json(self,sql, params={}):
-    self.print_sql('array',sql)
+    self.print_sql('array',sql,params)
    
     wrapped_sql = self.query_wrap_array(sql)
     with self.pool.connection() as conn:
@@ -73,7 +73,7 @@ class Db:
   
   # when we want to return json objects
   def query_object_json(self,sql,params={}):  
-    self.print_sql('json object',sql)
+    self.print_sql('json object',sql,params)
     self.print_params(params)
     wrapped_sql = self.query_wrap_object(sql)
 
@@ -100,6 +100,16 @@ class Db:
     # print the pgcode and pgerror exceptions
     print ("pgerror:", err.pgerror)
     print ("pgcode:", err.pgcode, "\n")
+
+  # when we want to return a a single value
+  def query_value(self,sql,params={}):
+    self.print_sql('value',sql,params)
+
+    with self.pool.connection() as conn:
+      with conn.cursor() as cur:
+        cur.execute(sql,params)
+        json = cur.fetchone()
+        return json[0]
 
   def query_wrap_object(self,template):
     sql = f"""
