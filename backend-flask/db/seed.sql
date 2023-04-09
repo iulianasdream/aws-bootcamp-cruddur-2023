@@ -4,7 +4,7 @@ VALUES
   --('Andrew Brown', 'andrew.brown@exampro.co', 'andrewbrown' ,'MOCK'),
   ('iuliana claudia', 'iulianaclaudia@exampro.co', 'iulianaclaudia' ,'MOCK'),
   ('silvasan iuliana', 'silvasaniuliana@exampro.co', 'silvasaniuliana' ,'MOCK'),
-  --('Andrew Bayko', 'bayko@exampro.co', 'bayko' ,'MOCK');
+  ('Londo Mollari', 'lmollari@centari.com', 'londo' ,'MOCK');
 
 INSERT INTO public.activities (user_uuid, message, expires_at)
 VALUES
