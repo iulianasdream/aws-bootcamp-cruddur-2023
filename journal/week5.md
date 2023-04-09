@@ -113,3 +113,16 @@ KeyError: 'keys'
 - user_pool_is is AWS_COGNITO_USER_POOL_ID env var and it is set in the terminal (env | grep AWS_COGNITO_USER_POOL_ID) and in docker_compose.yml (AWS_COGNITO_USER_POOL_ID: “${AWS_COGNITO_USER_POOL_ID}”)
     - (solved) needed the explicit value in docker_compose.yml
 
+## Starting up nwe gitpod environment
+
+Setup
+- ./bin/db/setup
+- /bin/db/update_cognito_user_ids
+- ./bin/ddb/schema_load
+- ./bin/ddb/seed
+- ./bin/ddb/patterns/get_conversations
+- ./bin/ddb/patterns/list_conversations
+- Check cognito user id was populated
+- ./bin/db/connect
+    - SELECT * FROM users;
+
