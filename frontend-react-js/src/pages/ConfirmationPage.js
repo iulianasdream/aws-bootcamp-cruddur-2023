@@ -2,9 +2,7 @@ import './ConfirmationPage.css';
 import React from "react";
 import { useParams } from 'react-router-dom';
 import {ReactComponent as Logo} from '../components/svg/logo.svg';
-
-// [TODO] Authenication
-import { Auth } from 'aws-amplify';
+import checkAuth from '../lib/CheckAuth';
 
 export default function ConfirmationPage() {
   const [email, setEmail] = React.useState('');
