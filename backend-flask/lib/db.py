@@ -1,5 +1,6 @@
 from psycopg_pool import ConnectionPool
 import os
+import re
 import sys
 from flask import current_app as app
 
@@ -50,7 +51,7 @@ class Db:
 
     try:
       with self.pool.connection() as conn:
-        curr = conn.cursor()
+        cur = conn.cursor()
         cur.execute(sql,params)
         if is_returning_id:
           returning_id = cur.fetchone()[0]

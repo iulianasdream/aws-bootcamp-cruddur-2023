@@ -68,6 +68,9 @@ tracer = trace.get_tracer(__name__)
 
 app = Flask(__name__)
 
+user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID")
+print(f"===== at function call, user_pool_id is: ", user_pool_id)
+
 cognito_jwt_token = CognitoJwtToken(
   user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"),
   user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
@@ -124,12 +127,20 @@ def rollbar_test():
 
 @app.route("/api/message_groups", methods=['GET'])
 def data_message_groups():
-  user_handle  = 'andrewbrown'
-  model = MessageGroups.run(user_handle=user_handle)
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
+  access_token = extract_access_token(request.headers)
+  try:
+    # authenticated request 
+    claims = cognito_jwt_token.verify(access_token)
+    cognito_user_id = claims['sub']
+    model = MessageGroups().run(cognito_user_id=cognito_user_id)
+    if model['errors'] is not None:
+      return model['errors'], 422
+    else:
+      return model['data'], 200
+  except TokenVerifyError as e:
+    # unauthenticated request 
+    app.logger.debug(e)
+    return {}, 401  
 
 @app.route("/api/messages/@<string:handle>", methods=['GET'])
 def data_messages(handle):
