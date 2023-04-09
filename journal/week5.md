@@ -75,3 +75,41 @@ $ ./bin/ddb/schema_load
 - Create list_conversation script
     - ./bin/db/connect and SELECT uuid, handle from USERS
     - `**Warning**`Every time you re-seed your database you must update the uuid in the list_conversation script, unless you implement get_uuid, which we eventually did
+
+## Implement conversations with DynamoDB
+
+- We need to get users from Cognito, so we avoid hard coding ( backend-flask/db/seed.sql where we have MOCK data)
+- [https://docs.aws.amazon.com/cli/latest/reference/cognito-idp/list-users.html](https://docs.aws.amazon.com/cli/latest/reference/cognito-idp/list-users.html)
+
+```
+aws cognito-idp list-users --user-pool-id XYZ --limit 20
+```
+
+- Check ./bin/db/update_cognito_user_ids
+    - error *NameError: name 're' is not defined*
+        - (solved) needed *import re*
+    - error *NameError: name 'cur' is not defined. Did you mean: 'curr'?* and *AttributeError: 'NameError' object has no attribute 'pgerror’*
+        - (solved) needed to fix typo, then worked
+- Check frontend
+    - CORS error because backend is not served. Backend container exited with error:
+
+```
+File "/backend-flask/app.py", line 71, in <module>
+    cognito_jwt_token = CognitoJwtToken(
+  File "/backend-flask/lib/cognito_jwt_token.py", line 33, in __init__
+    self._load_jwk_keys()
+  File "/backend-flask/lib/cognito_jwt_token.py", line 41, in _load_jwk_keys
+    self.jwk_keys = response.json()["keys"]
+KeyError: 'keys'
+```
+
+- debugging shows user_pool_id is null (keys_url = f"https://cognito-idp.{self.region}.amazonaws.com/{self.user_pool_id}/.well-known/jwks.json"):
+
+```
+============= keys_url:  https://cognito-idp.us-east-1.amazonaws.com//.well-known/jwks.json
+======= response from keys_url:  <Response [400]>
+```
+
+- user_pool_is is AWS_COGNITO_USER_POOL_ID env var and it is set in the terminal (env | grep AWS_COGNITO_USER_POOL_ID) and in docker_compose.yml (AWS_COGNITO_USER_POOL_ID: “${AWS_COGNITO_USER_POOL_ID}”)
+    - (solved) needed the explicit value in docker_compose.yml
+
