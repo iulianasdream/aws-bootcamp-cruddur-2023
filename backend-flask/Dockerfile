@@ -20,6 +20,7 @@ RUN chmod +x /usr/bin/backend.sh
 
 # Inside container
 ENV FLASK_ENV=development
+ENV PYTHONUNBUFFERED=1
 
 EXPOSE ${PORT}
 ENTRYPOINT [ "/usr/bin/backend.sh" ]
