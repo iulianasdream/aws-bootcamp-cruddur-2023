@@ -21,6 +21,9 @@ export default function MessageGroupPage() {
     try {
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/users/@${params.handle}/short`
       const res = await fetch(backend_url, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`
+        },
         method: "GET"
       });
       let resJson = await res.json();
@@ -40,7 +43,8 @@ export default function MessageGroupPage() {
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/message_groups`
       const res = await fetch(backend_url, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          'X-TEWST': 'test header 3'
         },
         method: "GET"
       });
